@@ -9,10 +9,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import produto.Produto;
 import produto.ProdutoCrud;
 import produtoDao.Conexao;
-import produtoDao.ProdutoDao;
 
 public class ClienteCrud {
     ClienteDao dao;

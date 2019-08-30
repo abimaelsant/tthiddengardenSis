@@ -198,7 +198,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void salva() {
-         boolean verifica = false;
+        boolean verifica = false;
         if (nomeProd.getText().isEmpty()) {
             verifica = true;
             JOptionPane.showMessageDialog(null, "O CAMPO NOME É OBRIGATÓRIO.");

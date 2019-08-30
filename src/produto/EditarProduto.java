@@ -262,7 +262,7 @@ public class EditarProduto extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            int input = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA DELETAR O CLIENTE?");
+            int input = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA DELETAR O PRODUTO?");
             if (input == 0) {
                 Produto produto = new Produto();
                 produto.setId(Integer.parseInt(id.getText()));
