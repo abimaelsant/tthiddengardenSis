@@ -16,6 +16,7 @@ public class ListaClientes extends javax.swing.JFrame {
     public ListaClientes() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         tabCliente.setRowHeight(30);
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -23,6 +24,7 @@ public class ListaClientes extends javax.swing.JFrame {
         tabCliente.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         tabCliente.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         tabCliente.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        tabCliente.getColumnModel().getColumn(5).setCellRenderer(centralizado);
         lista();
     }
 
@@ -48,11 +50,11 @@ public class ListaClientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "RG", "Data de Nascimento"
+                "Código", "Nome", "CPF", "RG", "Data de Nascimento", "Sexo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -123,7 +125,7 @@ public class ListaClientes extends javax.swing.JFrame {
                     tabCliente.updateUI();
                     for (int i = 0; i < clientes.size(); i++) {
                         Cliente cliente = new Cliente();
-                        table.addRow(new Object[]{clientes.get(i).getId(), clientes.get(i).getNome(), insereMascaraCpf(clientes.get(i).getCpf()), clientes.get(i).getRg(), formataData(clientes.get(i).getDataNascimento())});
+                        table.addRow(new Object[]{clientes.get(i).getId(), clientes.get(i).getNome(), insereMascaraCpf(clientes.get(i).getCpf()), clientes.get(i).getRg(), formataData(clientes.get(i).getDataNascimento()), clientes.get(i).getSexo()});
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "NENHUM DADO ENCONTRADO.");
@@ -148,7 +150,7 @@ public class ListaClientes extends javax.swing.JFrame {
                     table = (DefaultTableModel) tabCliente.getModel();
                     ((DefaultTableModel) tabCliente.getModel()).setNumRows(0);
                     tabCliente.updateUI();
-                    table.addRow(new Object[]{cliente.getId(), cliente.getNome(), insereMascaraCpf(cliente.getCpf()), cliente.getRg(), formataData(cliente.getDataNascimento())});
+                    table.addRow(new Object[]{cliente.getId(), cliente.getNome(), insereMascaraCpf(cliente.getCpf()), cliente.getRg(), formataData(cliente.getDataNascimento()), cliente.getSexo()});
 
                 } else {
                     JOptionPane.showMessageDialog(null, "NENHUM DADO ENCONTRADO.");
@@ -176,7 +178,8 @@ public class ListaClientes extends javax.swing.JFrame {
             Object Cpf = (tabCliente.getValueAt(tabCliente.getSelectedRow(), 2));
             Object Rg = (tabCliente.getValueAt(tabCliente.getSelectedRow(), 3));
             Object dataNascimento = (tabCliente.getValueAt(tabCliente.getSelectedRow(), 4));
-            EditarCliente editar = new EditarCliente(String.valueOf(id), String.valueOf(nome), String.valueOf(Cpf), String.valueOf(Rg), String.valueOf(dataNascimento));
+            Object Sexo = (tabCliente.getValueAt(tabCliente.getSelectedRow(), 5));
+            EditarCliente editar = new EditarCliente(String.valueOf(id), String.valueOf(nome), String.valueOf(Cpf), String.valueOf(Rg), String.valueOf(dataNascimento), String.valueOf(Sexo));
             editar.setVisible(true);
             this.dispose();
         }
@@ -205,7 +208,10 @@ public class ListaClientes extends javax.swing.JFrame {
     }
 
     public String formataData(Date data) {
-        return String.valueOf(data.getDate()) + '/' + String.valueOf(acrescentaZero(data.getMonth() + 1)) + '/' + String.valueOf(data.getYear() + 1900);
+        String dat = data.toString();
+        String[] d = dat.split("-");
+        dat = d[2] + '/' + d[1] + "/" + d[0];
+        return dat;
     }
 
     public final void lista() throws SQLException {
@@ -220,7 +226,7 @@ public class ListaClientes extends javax.swing.JFrame {
 
             lista = (ArrayList<Cliente>) cliCrud.lista();
             for (int i = 0; i < lista.size(); i++) {
-                table.addRow(new Object[]{lista.get(i).getId(), lista.get(i).getNome(), insereMascaraCpf(lista.get(i).getCpf()), lista.get(i).getRg(), formataData(lista.get(i).getDataNascimento())});
+                table.addRow(new Object[]{lista.get(i).getId(), lista.get(i).getNome(), insereMascaraCpf(lista.get(i).getCpf()), lista.get(i).getRg(), formataData(lista.get(i).getDataNascimento()), lista.get(i).getSexo()});
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ListaClientes.class.getName()).log(Level.SEVERE, null, ex);

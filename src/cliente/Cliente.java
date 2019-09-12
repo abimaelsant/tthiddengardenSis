@@ -8,14 +8,16 @@ public class Cliente {
     private String cpf;
     private String rg;
     private Date dataNascimento;
+    private String sexo;
     
     public Cliente() {}
     
-    public Cliente(String nome, String cpf, String rg, Date dataNascimento) {
+    public Cliente(String nome, String cpf, String rg, Date dataNascimento, String sexo) {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
     }
 
     public int getId() {
@@ -56,6 +58,14 @@ public class Cliente {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
     
     public boolean verificaIdade(Date data) {

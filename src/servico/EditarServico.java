@@ -16,6 +16,7 @@ public class EditarServico extends javax.swing.JFrame {
 
     public EditarServico(String Id, String nome, String descricao, String valor) {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         id.setText(Id);
         nomeServ.setText(nome);
         desc.setText(descricao);

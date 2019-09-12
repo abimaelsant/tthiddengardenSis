@@ -19,6 +19,7 @@ public class ListaServicos extends javax.swing.JFrame {
     public ListaServicos() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         tabServico.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabServico.setRowHeight(50);
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();

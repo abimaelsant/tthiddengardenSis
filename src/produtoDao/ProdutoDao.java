@@ -69,6 +69,23 @@ public class ProdutoDao implements ProdutoInterface {
             JOptionPane.showMessageDialog(null, "OCORREU UM ERRO. POR FAVOR TENTE NOVAMENTE. " + e);
         }
     }
+    
+    
+    public void atualizaEstoque(Produto produto) {
+        String sql = "UPDATE produto set quantidade=? where id=?";
+
+        try {
+
+            try (PreparedStatement stmt = (PreparedStatement) c.prepareStatement(sql)) {
+                stmt.setInt(1, produto.getQuantidade());
+                stmt.setInt(2, produto.getId());
+                stmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "OCORREU UM ERRO. POR FAVOR TENTE NOVAMENTE. "+e);
+        }
+    }
 
     @Override
     public void deleta(Produto produto) {
@@ -127,9 +144,10 @@ public class ProdutoDao implements ProdutoInterface {
 
         try {
 
-            PreparedStatement sql = c.prepareStatement("select from produto WHERE id= '" + id + "'");
-
-            ResultSet rs = sql.executeQuery();
+            String sql = "SELECT * FROM produto where id=?";
+            PreparedStatement ps = this.c.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 

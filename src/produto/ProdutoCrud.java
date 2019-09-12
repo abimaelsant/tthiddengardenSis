@@ -37,6 +37,11 @@ public class ProdutoCrud {
             Logger.getLogger(ProdutoCrud.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void atuaizaEstoque(Produto produto) {
+        this.dao.atualizaEstoque(produto);
+        //this.conexao.fecha(conexao.conexao(this.driver));
+    }
 
     public void deleta(Produto produto) {
         try {
@@ -60,5 +65,9 @@ public class ProdutoCrud {
     
     public Collection<Produto> buscaNome(String nome) {
         return this.dao.buscaProdutoNome(nome);
+    }
+    
+    public Produto buscaProduto(int id) {
+        return this.dao.buscaProduto(id);
     }
 }

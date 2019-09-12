@@ -15,14 +15,16 @@ public class EditarCliente extends javax.swing.JFrame {
         initComponents();
     }
 
-    public EditarCliente(String Id, String nome, String Cpf, String Rg, String data) {
+    public EditarCliente(String Id, String nome, String Cpf, String Rg, String data, String Sexo) {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         id.setText(Id);
         nomecli.setText(nome);
         cpf.setText(Cpf);
         rg.setText(Rg);
         dataNasc.setText(data);
+        sexo.setSelectedItem(Sexo);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,6 +44,8 @@ public class EditarCliente extends javax.swing.JFrame {
         id = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        sexo = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -102,7 +106,7 @@ public class EditarCliente extends javax.swing.JFrame {
                 jButton1KeyPressed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 300, 140, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 140, -1));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancel.png"))); // NOI18N
@@ -112,7 +116,7 @@ public class EditarCliente extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 150, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 150, -1));
 
         id.setEnabled(false);
         getContentPane().add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 50, 30));
@@ -127,7 +131,18 @@ public class EditarCliente extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, 120, 40));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, 120, 40));
+
+        sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
+        sexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sexoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 200, 30));
+
+        jLabel8.setText("Sexo:   ");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -203,12 +218,15 @@ public class EditarCliente extends javax.swing.JFrame {
         } else if (dataNasc.getText().isEmpty()) {
             verifica = true;
             JOptionPane.showMessageDialog(null, "O CAMPO DATA DE NASCIMENTO É OBRIGATÓRIO.");
+        } else if (sexo.getSelectedItem().toString().isEmpty()) {
+            verifica = true;
+            JOptionPane.showMessageDialog(null, "O CAMPO SEXO É OBRIGATÓRIO.");
         }
         if (verifica == false) {
             try {
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 java.sql.Date data = new java.sql.Date(format.parse(dataNasc.getText()).getTime());
-                Cliente cliente = new Cliente(nomecli.getText(), cpf.getText(), rg.getText(), data);
+                Cliente cliente = new Cliente(nomecli.getText(), cpf.getText(), rg.getText(), data, sexo.getSelectedItem().toString());
                 if (validarCPF(cliente.retiraMascaraCpf(cliente.getCpf()), true) == 1) {
                     if (cliente.verificaIdade(data)) {
                         ClienteCrud cliCrud = new ClienteCrud();
@@ -245,6 +263,10 @@ public class EditarCliente extends javax.swing.JFrame {
             salva();
         }
     }//GEN-LAST:event_dataNascKeyPressed
+
+    private void sexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sexoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -290,7 +312,9 @@ public class EditarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField nomecli;
     private javax.swing.JTextField rg;
+    private javax.swing.JComboBox<String> sexo;
     // End of variables declaration//GEN-END:variables
 }

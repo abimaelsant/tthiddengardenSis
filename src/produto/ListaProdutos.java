@@ -16,6 +16,7 @@ public final class ListaProdutos extends javax.swing.JFrame {
     public ListaProdutos() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         tabProduto.setRowHeight(30);
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);

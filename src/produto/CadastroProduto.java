@@ -15,6 +15,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     public CadastroProduto() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         quantidade.setDocument(new SoNumeros());
     }
 
@@ -49,6 +50,10 @@ public class CadastroProduto extends javax.swing.JFrame {
         quantidade = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -187,6 +192,18 @@ public class CadastroProduto extends javax.swing.JFrame {
         id.setEditable(false);
         id.setEnabled(false);
         getContentPane().add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 80, 30));
+
+        jMenu1.setText("Produtos");
+
+        jMenuItem1.setText("Cadastro de Pro");
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -431,6 +448,10 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JTextField lucroLote;
     private javax.swing.JTextField lucroUnitario;
     private javax.swing.JTextField nomeProd;

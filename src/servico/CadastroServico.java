@@ -13,6 +13,7 @@ public class CadastroServico extends javax.swing.JFrame {
     public CadastroServico() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         //valorServ.setDocument(new SoNumeros());
     }
 

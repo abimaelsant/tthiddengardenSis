@@ -19,6 +19,7 @@ public class EditarProduto extends javax.swing.JFrame {
     public EditarProduto(String Id, String nome, String Quantidade, String CustoLote, String FreteTotal, String FreteUnitario, String CustoUnitario, String CustoUnitarioComFrete, String PrecoUnitario, String LucroUnitario, String LucroLote) {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         id.setText(Id);
         nomeProd.setText(nome);
         quantidade.setText(Quantidade);

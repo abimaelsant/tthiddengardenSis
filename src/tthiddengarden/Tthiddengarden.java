@@ -1,14 +1,13 @@
 package tthiddengarden;
 
+import java.util.Arrays;
+
 public class Tthiddengarden {
 
     public static void main(String[] args) {
-        String c = "05232688316";
-        String c2 = "";
-        for(int i = 0; i < c.length(); i++) {
-            c2 += c.charAt(i);
-            if(i == 2 || i == 5) c2 += ".";
-            if(i == 8) c2 += "-";
-        }
+        String c = "1989-08-09";
+        String[] d = c.split("-");
+        c = d[2] + '/' + d[1] + "/" + d[0];
+        System.out.println(c);
     }    
 }

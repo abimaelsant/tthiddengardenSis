@@ -79,4 +79,8 @@ public class ClienteCrud {
        cliente = this.dao.buscaClienteCpfVerifica(cpf);
        return cliente.getCpf() != null && cliente.getId() != id;
     }
+    
+    public Cliente buscaRg(String rg) {
+        return this.dao.buscaRg(rg);
+    }
 }

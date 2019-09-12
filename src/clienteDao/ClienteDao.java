@@ -20,7 +20,7 @@ public class ClienteDao implements ClienteInterface{
 
     @Override
     public void insere(Cliente cliente) {
-        String sql = "INSERT INTO cliente(nome, cpf, rg, dataNascimento) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO cliente(nome, cpf, rg, dataNascimento, sexo) VALUES (?,?,?,?,?)";
 
         try {
             try (PreparedStatement stmt = (PreparedStatement) c.prepareStatement(sql)) {
@@ -28,6 +28,7 @@ public class ClienteDao implements ClienteInterface{
                 stmt.setString(2, cliente.getCpf());
                 stmt.setString(3, cliente.getRg());
                 stmt.setDate(4, (Date) cliente.getDataNascimento());
+                stmt.setString(5, cliente.getSexo());
                 stmt.execute();
                 JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO.");
             }
@@ -39,7 +40,7 @@ public class ClienteDao implements ClienteInterface{
 
     @Override
     public void edita(Cliente cliente) {
-        String sql = "UPDATE cliente set nome=?,cpf=?, rg=?, dataNascimento=? where id=?";
+        String sql = "UPDATE cliente set nome=?,cpf=?, rg=?, dataNascimento=?, sexo=? where id=?";
 
         try {
 
@@ -48,7 +49,8 @@ public class ClienteDao implements ClienteInterface{
                 stmt.setString(2, cliente.getCpf());
                 stmt.setString(3, cliente.getRg());
                 stmt.setDate(4, (Date) cliente.getDataNascimento());
-                stmt.setInt(5, cliente.getId());
+                stmt.setString(5, cliente.getSexo());
+                stmt.setInt(6, cliente.getId());
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "CLIENTE EDITADO COM SUCESSO.");
             }
@@ -92,6 +94,7 @@ public class ClienteDao implements ClienteInterface{
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setRg(rs.getString("rg"));
+                cliente.setSexo(rs.getString("sexo"));
                 cliente.setDataNascimento(rs.getDate("dataNascimento"));
                 clientes.add(cliente);
             }
@@ -120,6 +123,7 @@ public class ClienteDao implements ClienteInterface{
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setRg(rs.getString("rg"));
                 cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setSexo(rs.getString("sexo"));
             }
 
         } catch (SQLException e) {
@@ -147,6 +151,7 @@ public class ClienteDao implements ClienteInterface{
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setRg(rs.getString("rg"));
                 cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setSexo(rs.getString("sexo"));
                 clientes.add(cliente);
             }
 
@@ -171,6 +176,7 @@ public class ClienteDao implements ClienteInterface{
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setRg(rs.getString("rg"));
                 cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setSexo(rs.getString("sexo"));
             }
 
         } catch (SQLException e) {
@@ -195,6 +201,33 @@ public class ClienteDao implements ClienteInterface{
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "OCORREU UM ERRO. POR FAVOR TENTE NOVAMENTE.");
+        }
+        return cliente;
+    }
+    
+    public Cliente buscaRg(String rg) {
+
+        Cliente cliente = new Cliente();
+
+        try {
+
+            String sql = "SELECT * FROM cliente where rg=?";
+            PreparedStatement ps = this.c.prepareStatement(sql);
+            ps.setString(1, rg);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setRg(rs.getString("rg"));
+                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setSexo(rs.getString("sexo"));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "OCORREU UM ERRO. POR FAVOR TENTE NOVAMENTE."+ e);
         }
         return cliente;
     }

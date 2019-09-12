@@ -15,6 +15,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     public CadastroCliente() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         //cpf.setDocument(new SoNumeros());
         rg.setDocument(new SoNumeros());
     }
@@ -36,6 +37,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        sexo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -97,7 +100,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 jButton1KeyPressed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 300, 140, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 140, -1));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancel.png"))); // NOI18N
@@ -107,8 +110,19 @@ public class CadastroCliente extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 150, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 150, -1));
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 60, 30));
+
+        jLabel8.setText("Sexo:   ");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
+
+        sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "M", "F" }));
+        sexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sexoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 200, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -158,12 +172,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         } else if (dataNasc.getText().isEmpty()) {
             verifica = true;
             JOptionPane.showMessageDialog(null, "O CAMPO DATA DE NASCIMENTO É OBRIGATÓRIO.");
+        } else if (sexo.getSelectedItem().toString().equals("-")) {
+            verifica = true;
+            JOptionPane.showMessageDialog(null, "O CAMPO SEXO É OBRIGATÓRIO.");
         }
         if (verifica == false) {
             try {
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 java.sql.Date data = new java.sql.Date(format.parse(dataNasc.getText()).getTime());
-                Cliente cliente = new Cliente(nomecli.getText(), cpf.getText(), rg.getText(), data);
+                Cliente cliente = new Cliente(nomecli.getText(), cpf.getText(), rg.getText(), data, sexo.getSelectedItem().toString());
                 if (validarCPF(cliente.retiraMascaraCpf(cliente.getCpf()), true) == 1) {
                     if (cliente.verificaIdade(data)) {
                         ClienteCrud cliCrud = new ClienteCrud();
@@ -200,6 +217,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1KeyPressed
 
+    private void sexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sexoActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -221,7 +242,9 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField nomecli;
     private javax.swing.JTextField rg;
+    private javax.swing.JComboBox<String> sexo;
     // End of variables declaration//GEN-END:variables
 }
